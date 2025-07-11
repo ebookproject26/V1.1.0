@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Sheets Responsive</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, blue, pink);
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .iframe-container {
+            width: 90%;
+            max-width: 1200px;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            overflow-x: auto;
+        }
+
+        iframe {
+            width: 100%;
+            min-width: 900px;
+            /* agar isi Google Sheet tidak kepotong */
+            height: 90vh;
+            border: none;
+            border-radius: 10px;
+        }
+
+        /* Media Query untuk perangkat kecil */
+        @media (max-width: 600px) {
+            iframe {
+                height: 75vh;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="iframe-container">
+        <iframe
+            src="https://docs.google.com/spreadsheets/d/1c0LItsogZmma4YTC68Jr5A67srOL6MQz5OxnC3FfC3U/preview?gid=1904372764&single=true"
+            allowfullscreen>
+        </iframe>
+    </div>
+</body>
+
+</html>

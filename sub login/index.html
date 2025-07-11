@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login e-Buku Tamu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="left-section">
+            <img src="logo/logo ebook.png" alt="Logo" class="logo">
+            <h1>SUGENG RAWUH</h1>
+            <p>Meniko Aplikasi Buku Tamu Elektronik Panjenengan</p>
+            <p>Mugi Dadosno renaning penggalih</p>
+            <p><small>(buat akun klik <strong>"daftar di sini"</strong></strong>, kemudian silahkan login)</small></p>
+        </div>
+        <div class="right-section">
+
+            <!-- Login Form -->
+            <div id="login-section">
+                <h2>Login Akun</h2>
+                <form id="loginForm">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                    <label for="login-password">Password</label>
+                    <div class="password-box">
+                        <input type="password" id="login-password" required>
+                        <i class="material-icons toggle-password">visibility_off</i>
+                    </div>
+                    <button type="submit" class="btn-login">Masuk</button>
+                    <div id="login-loading" style="display:none;">🔄 Memverifikasi...</div>
+                    <div id="login-error-message"></div>
+                </form>
+                <p>Belum punya akun? <a href="#" id="showSignup">Daftar di sini</a></p>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signup-section" style="display: none;">
+                <h2>Daftar Akun</h2>
+                <form id="signupForm">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" required>
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required>
+                    <button type="submit" class="btn-login">Daftar</button>
+                    <div id="signup-message"></div>
+                </form>
+                <p>Sudah punya akun? <a href="#" id="showLogin">Login di sini</a></p>
+            </div>
+            <!-- Datasheet Container -->
+            <div id="datasheet-container">
+                <iframe id="datasheet-frame" src=""></iframe>
+            </div>
+
+        </div>
+    </div>
+    <footer class="footer">
+        <p>&copy; 2025 Aplikasi e-book Pro (Login form)</p>
+        <p>Dikembangkan oleh: Wening.lab Studio</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

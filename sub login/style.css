@@ -1,0 +1,352 @@
+/* style.css */
+:root {
+    --primary-color: #4361ee;
+    --secondary-color: #3f37c9;
+    --accent-color: #4895ef;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --success-color: #4bb543;
+    --error-color: #ff3333;
+    --border-radius: 8px;
+    --border-color: linear-gradient(135deg, var(--primary-blue), var(--pink-accent));
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --primary-blue: #4361ee;
+    --pink-accent: #f72585;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-image: url(logo/cca5ed3-10-mesin.jpg);
+    color: var(--dark-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    display: flex;
+    flex: 1;
+    max-width: 800px;
+    max-height: 500px;
+    margin: auto auto;
+    background: white;
+    border-radius: var(--border-radius);
+    border-color: var(--border-color);
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+}
+
+.left-section {
+    flex: 1;
+    background: linear-gradient(135deg, var(--primary-blue), var(--pink-accent));
+    color: white;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.left-section h1 {
+    font-size: 2.5rem;
+    margin: 1.5rem 0;
+    font-weight: 600;
+}
+
+.left-section p {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.left-section small {
+    opacity: 0.8;
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 50%;
+    background: rgb(2, 204, 255);
+    padding: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.right-section {
+    flex: 1;
+    padding: 3rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: rgb(233, 233, 233);
+}
+
+.right-section h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+label {
+    font-weight: 500;
+    color: var(--dark-color);
+}
+
+input {
+    padding: 0.8rem 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+input:focus {
+    border-color: var(--accent-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+}
+
+.password-box {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #adb5bd;
+    user-select: none;
+}
+
+.btn-login {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.8rem;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-login:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+.btn-login:active {
+    transform: translateY(0);
+}
+
+#login-error-message,
+#signup-message {
+    padding: 0.8rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+    font-weight: 500;
+}
+
+#login-error-message {
+    color: var(--error-color);
+    background-color: rgba(255, 51, 51, 0.1);
+}
+
+#signup-message {
+    color: var(--success-color);
+    background-color: rgba(75, 181, 67, 0.1);
+}
+
+#login-loading {
+    text-align: center;
+    font-style: italic;
+    color: var(--accent-color);
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.footer {
+    background-color: #0c2136da;
+    text-align: center;
+    padding: 1.5rem;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+#datasheet-container {
+    width: 80%;
+    height: 600px;
+    margin: 20px auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: both;
+    overflow: auto;
+    display: none;
+    /* default hidden */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+#datasheet-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+}
+
+/* Media Queries untuk Responsive Design */
+@media (max-width: 992px) {
+    .container {
+        max-width: 90%;
+        max-height: none;
+        margin: 2rem auto;
+        border-radius: 12px;
+    }
+
+    .left-section,
+    .right-section {
+        padding: 2rem;
+    }
+
+    .left-section h1 {
+        font-size: 2rem;
+    }
+
+    .right-section h2 {
+        font-size: 1.8rem;
+    }
+}
+
+/* Tablet dan Mobile Landscape */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        max-height: none;
+        border-radius: 12px;
+    }
+
+    .left-section {
+        padding: 2rem 1.5rem;
+        border-radius: var(--border-radius) var(--border-radius) 0 0;
+    }
+
+    .right-section {
+        padding: 2rem 1.5rem;
+        border-radius: 0 0 var(--border-radius) var(--border-radius);
+    }
+
+    .logo {
+        width: 80px;
+        height: 80px;
+    }
+
+    .left-section h1 {
+        font-size: 1.8rem;
+        margin: 1rem 0;
+    }
+
+    .left-section p {
+        font-size: 1rem;
+    }
+}
+
+/* Mobile Portrait */
+@media (max-width: 576px) {
+    body {
+        padding: 1rem;
+        background: #000b30;
+    }
+
+    .container {
+        max-width: 100%;
+        margin: 0;
+        border-radius: 12px;
+    }
+
+    .left-section,
+    .right-section {
+        padding: 1.5rem;
+    }
+
+    .right-section {
+        background: white;
+    }
+
+    form {
+        gap: 1rem;
+    }
+
+    input {
+        padding: 0.7rem;
+    }
+
+    .btn-login {
+        padding: 0.7rem;
+    }
+
+    .footer {
+        padding: 1rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* Very Small Mobile Devices (e.g. iPhone SE) */
+@media (max-width: 375px) {
+    .left-section h1 {
+        font-size: 1.5rem;
+    }
+
+    .right-section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    label {
+        font-size: 0.9rem;
+    }
+
+    input {
+        font-size: 0.9rem;
+    }
+}
+
+/* Orientation Adjustment */
+@media (max-height: 600px) and (orientation: landscape) {
+    .container {
+        max-height: 90vh;
+        overflow-y: auto;
+        border-radius: 12px;
+    }
+
+    .left-section,
+    .right-section {
+        padding: 1.5rem;
+    }
+}

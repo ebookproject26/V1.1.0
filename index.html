@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>e-Book Pro</title>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo-area">
+            <div class="back-button" id="backButton">
+                <a href="#" aria-label="Kembali ke halaman sebelumnya">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+            <img src="berandajpg/logo ebook.png" alt="Logo e-Book" class="logo-img" loading="lazy">
+            <h1>_book</h1>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Menu navigasi" aria-expanded="false">
+            <div class="hamburger-icon" aria-hidden="true">
+                <span class="line top"></span>
+                <span class="line middle"></span>
+                <span class="line bottom"></span>
+            </div>
+        </button>
+        <div class="nav-menu" id="navMenu">
+            <a href="#" data-section="home" class="active">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="#" data-section="features">
+                <i class="fas fa-star"></i> Features
+            </a>
+            <a href="#" data-section="about">
+                <i class="fas fa-info-circle"></i> Tentang
+            </a>
+            <a href="#" data-section="contact">
+                <i class="fas fa-phone-alt"></i> Kontak
+            </a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <!-- Home Section -->
+        <section id="home" class="content-section active">
+            <div class="hero">
+                <div class="hero-box">
+                    <h1 class="welcome-title">Transformasi Buku Tamu Modern</h1>
+                    <p class="welcome-desc">Ubah pengalaman acara Anda dengan sistem buku tamu elektronik cepat dan aman
+                        dari e_book. Aplikasi berbasis Cloud, memastikan kemudahan penggunaan dan keamanan data untuk
+                        semua pengguna.</p>
+                    <div class="action-buttons">
+                        <a class="btn btn-primary" href="sub login/index.html">
+                            <i class="fas fa-user-tie"></i> Owner
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="content-section" id="features">
+            <div class="hero">
+                <h1 class="welcome-title">Fitur Unggulan</h1>
+                <p class="welcome-desc">
+                    Temukan berbagai fitur canggih yang dirancang khusus untuk kebutuhan Event Anda
+                </p>
+
+                <div class="features-grid">
+                    <div class="feature-card" onclick="navigateTo('realtime')">
+                        <div class="feature-icon"><i class="fas fa-clock"></i></div>
+                        <h3 class="feature-title">Realtime Tracking</h3>
+                        <p>Pantau kedatangan tamu secara realtime dengan notifikasi instan</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                        <h3 class="feature-title">Analitik Cerdas</h3>
+                        <p>Visualisasi data tamu dalam grafik interaktif dan laporan periodik</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-qrcode"></i></div>
+                        <h3 class="feature-title">Check-in QR Code</h3>
+                        <p>Proses check-in cepat dengan scan QR code dari undangan digital</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-robot"></i></div>
+                        <h3 class="feature-title">Chatbot WA</h3>
+                        <p>Respon otomatis dan konfirmasi kehadiran via WhatsApp</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                        <h3 class="feature-title">Cloud Sync</h3>
+                        <p>Data tersimpan aman di cloud dan bisa diakses dari mana saja</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                        <h3 class="feature-title">Responsive</h3>
+                        <p>Tampilan optimal di semua perangkat: desktop, tablet, dan mobile</p>
+                    </div>
+                </div>
+
+        </section>
+
+        <!-- Realtime Tracking Section -->
+        <section class="content-section" id="realtime" style="display: none;">
+            <div class="hero">
+                <div class="hero-box">
+                    <h2 class="welcome-title">Realtime Tracking</h2>
+                    <iframe
+                        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSUGWNS1JvhcA4TJqVopytDFaTtWZ99Cm0EoH_lStrfxZYPnDX3yySgk2xE8HFWKXc0Zae1krhyEkkw/pubhtml?widget=true&amp;headers=false"
+                        width="100%" height="500px" style="border:none; border-radius: 8px;">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="content-section" id="about">
+            <div class="hero">
+                <h1 class="welcome-title">Tentang e_book: Platform Inovatif untuk Pengelolaan Event</h1>
+                <p class="welcome-desc">
+                    Menyediakan Solusi Manajemen Tamu Digital Untuk Berbagai Event
+                </p>
+
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>
+                            <strong>Buku Tamu Digital</strong> dengan user interface (UI) Yang modern dan Elegan kami
+                            telah
+                            meningkatkan efektivitas pengelolaan tamu di berbagai Event,
+                            menciptakan sistem pendaftaran yang lebih cepat dan akurat bagi pengguna, serta memberikan
+                            kepuasan
+                            kepada klien.
+                        <P>
+
+                        </P>
+                        Dengan Didukung teknologi AI, e_book mengelola data secara komprehensif dan menawarkan kemudahan
+                        akses bagi
+                        seluruh
+                        pengguna.
+                        </p>
+                    </div>
+
+                    <div class="about-image">
+                        <img src="berandajpg/cca5ed3-10-mesin.jpg" alt="Tentang Kami">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="content-section" id="contact">
+            <div class="hero">
+                <h1 class="welcome-title">Hubungi Tim Kami</h1>
+                <p class="welcome-desc">
+                    Kami siap membantu Anda, Hubungi Kami melalui saluran berikut:
+                </p>
+
+                <div class="contact-methods">
+                    <div class="contact-card whatsapp-card">
+                        <i class="fab fa-whatsapp"></i>
+                        <h3>WhatsApp</h3>
+                        <p>+62-851-5883-8350</p>
+                        <small>Klik untuk chat langsung</small>
+
+                    </div>
+
+                    <div class="contact-card envelope-card">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Email</h3>
+                        <p>ai.deep9077@gmail.com</p>
+                        <small>Klik untuk kirim email</small>
+                    </div>
+
+                    <div class="contact-card phone-card">
+                        <i class="fas fa-phone"></i>
+                        <h3>Telepon</h3>
+                        <p>+62-851-5883-8350</p>
+                        <small>Klik untuk telp langsung</small>
+                    </div>
+
+                    <div class="contact-card map-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>Kantor</h3>
+                        <p>Jl. Ponorogo-Trenggalek Km 26</p>
+                        <small>Klik untuk lokasi aktual</small>
+                    </div>
+
+                </div>
+
+                <p class="warning">Formulir Kirim Pesan Langsung Sedang dalam perbaikan. Mohon maaf Atas ketidak
+                    nyamanan ini.</p>
+
+                <div class="contact-form">
+                    <h3>Kirim Pesan Langsung</h3>
+                    <form action="https://mail.google.com/mail/u/0/#inbox" method="POST">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Nama Lengkap" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Alamat Email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Perusahaan">
+                        </div>
+
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Pesan Anda" required></textarea>
+                        </div>
+                        <form action="#" method="POST">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> Kirim Pesan
+                            </button>
+                        </form>
+                </div>
+            </div>
+        </section>
+        <div id="spreadsheet-container" style="display:none; margin-top:20px;">
+            <iframe id="spreadsheet-frame" src="" width="100%" height="600" style="border:none; border-radius: 8px;">
+            </iframe>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-mainfooter visible" id="mainFooter">
+        <div class="mainfooter-content">
+            <div class="mainfooter-section">
+                <h3>Tentang Kami</h3>
+                <p>Kami bergerak di bidang teknologi dan inovasi</p>
+                <div class="social-media">
+                    <a href="https://facebook.com/eBukuTamu" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="https://instagram.com/eBukuTamu" aria-label="Instagram"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://linkedin.com/company/eBukuTamu" aria-label="LinkedIn"><i
+                            class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+
+            <div class="mainfooter-section">
+                <h3>Kontak Resmi</h3>
+                <address>
+                    <p><i class="fas fa-envelope"></i> <a href="mailto:ai.deep9077@gmail.com">Hallo @ Pengembang</a></p>
+                    <p><i class="fas fa-phone-alt"></i> <a href="tel:+6285158838350">Call to Admin</a></p>
+                    <p><i class="fas fa-map-marker-alt"></i>
+                        <a href="https://www.google.com/maps?q=-7.996981,111.579455" target="_blank">
+                            Lokasi Aktual
+                        </a>
+                    </p>
+                </address>
+            </div>
+        </div>
+
+        <div class="mainfooter-bottom">
+            <p>&copy; copyright 2025 <strong>e-book</strong>. Seluruh hak dilindungi.</p>
+            <p class="developer-credit">Dikembangkan dengan <i class="fas fa-heart" style="color:#e74c3c"></i> oleh:
+                Wening.lab Studio. Versi 1.1.0 (BETA)
+            </p>
+        </div>
+    </footer>
+    </div>
+
+
+
+    <!-- WhatsApp Float Button -->
+    <div class="scroll-down-indicator">
+        <span>Pesan Sekarang</span>
+        <i class="fas fa-chevron-down"></i>
+    </div>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/6285158838350" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
