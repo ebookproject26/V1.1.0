@@ -23,6 +23,7 @@
 body {
     font-family: 'Poppins', sans-serif;
     background-image: url(logo/cca5ed3-10-mesin.jpg);
+    background-size: cover;
     color: var(--dark-color);
     line-height: 1.6;
     min-height: 100vh;
@@ -38,7 +39,6 @@ body {
     margin: auto auto;
     background: white;
     border-radius: var(--border-radius);
-    border-color: var(--border-color);
     box-shadow: var(--box-shadow);
     overflow: hidden;
 }
@@ -113,7 +113,6 @@ input {
     border-radius: var(--border-radius);
     font-size: 1rem;
     transition: all 0.3s ease;
-    width: 100%;
 }
 
 input:focus {
@@ -202,23 +201,75 @@ a:hover {
 }
 
 #datasheet-container {
-    width: 80%;
-    height: 600px;
-    margin: 20px auto;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    resize: both;
-    overflow: auto;
     display: none;
-    /* default hidden */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 1000;
 }
 
 #datasheet-frame {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 40px);
+    /* space for logout button */
     border: none;
-    border-radius: 8px;
+    margin-top: 40px;
+}
+
+
+/* Sembunyikan container utama saat iframe aktif */
+body.iframe-active .container {
+    display: none;
+}
+
+body.iframe-active .footer {
+    display: none;
+    height: 800px;
+
+}
+
+/* Style untuk tombol logout */
+.logout-btn {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1001;
+    padding: 8px 16px;
+    background: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+}
+
+.logout-btn:hover {
+    background: #d32f2f;
+}
+
+/* Style untuk alert messages */
+.alert {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+}
+
+.alert.success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.alert.error {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.alert.loading {
+    background-color: #e3f2fd;
+    color: #1565c0;
 }
 
 /* Media Queries untuk Responsive Design */
@@ -338,7 +389,7 @@ a:hover {
 }
 
 /* Orientation Adjustment */
-@media (max-height: 600px) and (orientation: landscape) {
+@media (max-height: 600px) and (orientation: portrait) {
     .container {
         max-height: 90vh;
         overflow-y: auto;
