@@ -493,11 +493,24 @@ button.loading::after {
         font-size: 1.8rem;
     }
 }
-@media (max-width: 800px) {
+@media screen and (max-width: 800px) {
     .container {
         flex-direction: column !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        max-height: none !important;
+        margin: 1rem auto;
+        border-radius: 12px;
+    }
+
+    .left-section,
+    .right-section {
+        width: 100% !important;
+        padding: 1.5rem !important;
     }
 }
+
 
 /* Tablet dan Mobile Landscape */
 @media (max-width: 768px) {
