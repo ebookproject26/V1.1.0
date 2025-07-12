@@ -6,52 +6,275 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Sheets Responsive</title>
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
-            background: linear-gradient(to right, blue, pink);
-            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a2980, #26d0ce);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .iframe-container {
-            width: 90%;
-            max-width: 1200px;
-            background-color: #fff;
-            padding: 10px;
-            border-radius: 15px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            overflow-x: auto;
+            padding: 15px;
+            position: relative;
         }
 
         iframe {
             width: 100%;
-            min-width: 900px;
-            /* agar isi Google Sheet tidak kepotong */
-            height: 90vh;
+            height: 70vh;
             border: none;
             border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background: white;
         }
 
-        /* Media Query untuk perangkat kecil */
-        @media (max-width: 600px) {
+        .controls {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            gap: 15px;
+            background: #f8f9fa;
+            border-top: 1px solid #eee;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(to right, #3498db, #2c3e50);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn i {
+            font-size: 1.2rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #2c3e50;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        /* Media Queries untuk semua perangkat */
+
+        /* Desktop Besar (Lebar > 1200px) */
+        @media (min-width: 1200px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
             iframe {
                 height: 75vh;
             }
         }
+
+        /* Desktop Standar (Lebar 992px - 1199px) */
+        @media (min-width: 992px) and (max-width: 1199px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+
+            iframe {
+                height: 70vh;
+            }
+        }
+
+        /* Tablet Landscape (Lebar 768px - 991px) */
+        @media (min-width: 768px) and (max-width: 991px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            iframe {
+                height: 65vh;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Tablet Portrait (Lebar 576px - 767px) */
+        @media (min-width: 576px) and (max-width: 767px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            iframe {
+                height: 60vh;
+            }
+
+            .controls {
+                flex-wrap: wrap;
+            }
+
+            .btn {
+                flex: 1;
+                min-width: 150px;
+            }
+        }
+
+        /* Smartphone (Lebar < 576px) */
+        @media (max-width: 575px) {
+            body {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 15px 10px;
+            }
+
+            .header h1 {
+                font-size: 1.6rem;
+            }
+
+            .header p {
+                font-size: 0.9rem;
+            }
+
+            iframe {
+                height: 50vh;
+                border-radius: 8px;
+            }
+
+            .controls {
+                flex-direction: column;
+                gap: 10px;
+                padding: 15px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .footer {
+                padding: 15px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Mode Landscape */
+        @media (orientation: landscape) and (max-width: 991px) {
+            iframe {
+                height: 65vh;
+            }
+        }
+
+        /* Layar Sangat Kecil (contoh: Galaxy Fold) */
+        @media (max-width: 330px) {
+            .header h1 {
+                font-size: 1.4rem;
+            }
+
+            iframe {
+                height: 45vh;
+            }
+        }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
-    <div class="iframe-container">
-        <iframe
-            src="https://docs.google.com/spreadsheets/d/1c0LItsogZmma4YTC68Jr5A67srOL6MQz5OxnC3FfC3U/preview?gid=1904372764&single=true"
-            allowfullscreen>
-        </iframe>
+    <div class="container">
+        <div class="header">
+            <h1>Database Tamu</h1>
+            <p>Kami sajikan Data Real time di sini</p>
+        </div>
+
+        <div class="iframe-container">
+            <iframe
+                src="https://docs.google.com/spreadsheets/d/1c0LItsogZmma4YTC68Jr5A67srOL6MQz5OxnC3FfC3U/preview?gid=1904372764&single=true"
+                allowfullscreen></iframe>
+        </div>
+
+        <div class="controls">
+            <button class="btn"><i class="fas fa-sync-alt"></i> Refresh</button>
+            <!--<button class="btn"><i class="fas fa-download"></i> Unduh</button>
+            <button class="btn"><i class="fas fa-share-alt"></i> Bagikan</button>
+            <button class="btn"><i class="fas fa-print"></i> Cetak</button>-->
+        </div>
+
+        <div class="footer">
+            <p>© 2025 Database | powered by: ❤️ google sheet</p>
+        </div>
     </div>
+
+    <script>
+        // Script untuk tombol refresh
+        document.querySelector('.btn:nth-child(1)').addEventListener('click', function () {
+            const iframe = document.querySelector('iframe');
+            const currentSrc = iframe.src;
+            iframe.src = '';
+            setTimeout(() => {
+                iframe.src = currentSrc;
+                this.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> Memuat...';
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
+                }, 1500);
+            }, 300);
+        });
+
+        // Animasi tombol saat dihover
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(btn => {
+            btn.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-3px)';
+            });
+            btn.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
 </body>
 
 </html>
