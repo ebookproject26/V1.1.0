@@ -1,35 +1,7 @@
+
 const webAppUrl = "https://script.google.com/macros/s/AKfycbzu87pePBMNUq3m4vEk23frIzcQdPpajAsv88xJewIi9amJQRh0eXqIgmpV3am337BoQw/exec";
 
 document.addEventListener("DOMContentLoaded", function () {
-    let ptrInstance = null;
-
-    function enablePullToRefreshOnLogin() {
-        if (ptrInstance) return; // Jangan aktifkan dua kali
-
-        ptrInstance = PullToRefresh.init({
-            mainElement: 'body',
-            onRefresh() {
-                console.log("Refreshing login page...");
-                window.location.reload();
-            },
-            instructionsPullToRefresh: "Tarik ke bawah untuk menyegarkan...",
-            instructionsReleaseToRefresh: "Lepaskan untuk menyegarkan...",
-            instructionsRefreshing: "Menyegarkan...",
-            shouldPullToRefresh() {
-                // Hanya aktif jika login-section terlihat
-                const loginVisible = document.getElementById("login-section")?.style.display !== "none";
-                return loginVisible;
-            }
-        });
-    }
-
-    function disablePullToRefresh() {
-        if (ptrInstance) {
-            ptrInstance.destroy();
-            ptrInstance = null;
-        }
-    }
-
     // === TOGGLE PASSWORD VISIBILITY (LOGIN ONLY) ===
     const togglePasswordIcon = document.querySelector(".toggle-password");
     const passwordInput = document.getElementById("login-password");
@@ -240,20 +212,21 @@ document.addEventListener("DOMContentLoaded", function () {
                 submitBtn.disabled = false;
 
                 if (data.result === "success") {
-                    submitBtn.innerHTML = `<span class="btn-text">✓ Berhasil</span>`;
+                    // Tampilkan animasi sukses sebelum redirect
+                    submitBtn.innerHTML = `
+                <span class="btn-text">✓ Berhasil</span>
+            `;
                     errorBox.innerHTML = `
-            <div class="success-animation">
-                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
-                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-                </svg>
-                <p>Login berhasil!</p>
-            </div>
-        `;
+                <div class="success-animation">
+                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                        <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                    </svg>
+                    <p>Login berhasil!</p>
+                </div>
+            `;
 
-                    // ✅ MATIKAN PULL-TO-REFRESH
-                    disablePullToRefresh();
-
+                    // Tunggu 1 detik sebelum membuka iframe
                     setTimeout(() => {
                         document.body.classList.add("iframe-active");
                         loginSection.style.display = "none";
@@ -270,12 +243,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     throw new Error(data.message || "Login gagal");
                 }
             })
-    })
-        .catch(err => {
-            submitBtn.classList.remove('loading');
-            submitBtn.disabled = false
-
-        });
+            .catch(err => {
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false
+            });
+    });
 
     // Fungsi helper untuk menampilkan error
     function showError(element, message) {
@@ -320,8 +292,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         document.body.appendChild(logoutBtn);
     }
-    enablePullToRefreshOnLogin();
-
 });
 function showToast(message, type = 'info') {
     const toast = document.createElement('div');
