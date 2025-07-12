@@ -1,3 +1,5 @@
+const webAppUrl = "https://script.google.com/macros/s/AKfycbzu87pePBMNUq3m4vEk23frIzcQdPpajAsv88xJewIi9amJQRh0eXqIgmpV3am337BoQw/exec";
+
 document.addEventListener("DOMContentLoaded", function () {
     // === TOGGLE PASSWORD VISIBILITY (LOGIN ONLY) ===
     const togglePasswordIcon = document.querySelector(".toggle-password");
@@ -5,22 +7,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (togglePasswordIcon && passwordInput) {
         togglePasswordIcon.addEventListener("click", function () {
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-                togglePasswordIcon.textContent = "visibility";
-            } else {
-                passwordInput.type = "password";
-                togglePasswordIcon.textContent = "visibility_off";
-            }
+            const isPassword = passwordInput.type === "password";
+            passwordInput.type = isPassword ? "text" : "password";
+            togglePasswordIcon.textContent = isPassword ? "visibility" : "visibility_off";
         });
     }
 
-    // === SWITCH BETWEEN LOGIN & SIGNUP FORMS ===
+    // === FORM ELEMENTS ===
     const loginSection = document.getElementById("login-section");
     const signupSection = document.getElementById("signup-section");
     const loginForm = document.getElementById("loginForm");
     const signupForm = document.getElementById("signupForm");
 
+    // === SWITCH BETWEEN LOGIN & SIGNUP ===
     document.getElementById("showSignup").addEventListener("click", function (e) {
         e.preventDefault();
         loginForm.reset();
@@ -37,7 +36,13 @@ document.addEventListener("DOMContentLoaded", function () {
         loginSection.style.display = "block";
     });
 
-    // === SIGNUP LOGIC ===
+    // === VALIDASI EMAIL ===
+    function isValidEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    // === SIGNUP ===
     signupForm.addEventListener("submit", function (e) {
         e.preventDefault();
 
@@ -46,9 +51,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const messageBox = document.getElementById("signup-message");
 
         if (!email || !password) {
-            messageBox.style.color = "red";
-            messageBox.innerText = "❌ Email dan password wajib diisi.";
-            return;
+            return showError(messageBox, "❌ Email dan password wajib diisi.");
+        }
+        if (!isValidEmail(email)) {
+            return showError(messageBox, "❌ Format email tidak valid.");
         }
 
         messageBox.style.color = "black";
@@ -64,26 +70,50 @@ document.addEventListener("DOMContentLoaded", function () {
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: params.toString()
         })
-            .then((res) => res.json())
-            .then((data) => {
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(err => {
+                        throw new Error(err.message || "HTTP error");
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
                 if (data.result === "success") {
-                    messageBox.style.color = "green";
-                    messageBox.innerText = "✅ Link verifikasi telah dikirim ke email Anda.";
-                    this.reset();
-                    // Redirect ke datasheet jika mau langsung ke halaman itu setelah signup
-                    window.location.href = "datasheet.html";
+                    messageBox.innerHTML = `
+                <div class="alert success">
+                    ✅ Akun berhasil dibuat! Redirecting...
+                </div>
+            `;
+                    setTimeout(() => {
+                        signupForm.reset();
+                        messageBox.innerHTML = "";
+
+                        // Tampilkan kembali form login
+                        document.getElementById("signup-section").style.display = "none";
+                        document.getElementById("login-section").style.display = "block";
+
+                        // Tampilkan pesan sukses di form login
+                        const loginMessage = document.getElementById("login-error-message");
+                        loginMessage.style.color = "green";
+                        loginMessage.innerText = "✅ Akun berhasil dibuat. Silakan login.";
+                    }, 2000);
                 } else {
-                    messageBox.style.color = "red";
-                    messageBox.innerText = "❌ " + data.message;
+                    showError(messageBox, data.message || "Signup gagal.");
                 }
             })
-            .catch((err) => {
-                messageBox.style.color = "red";
-                messageBox.innerText = "❌ Error jaringan: " + err.message;
+            .catch(err => {
+                console.error("Signup error:", err);
+                showError(messageBox,
+                    err.message.includes("Failed to fetch")
+                        ? "Koneksi ke server gagal. Cek koneksi internet Anda."
+                        : err.message
+                );
             });
     });
 
-    // === LOGIN LOGIC ===
+
+    // === LOGIN ===
     loginForm.addEventListener("submit", function (e) {
         e.preventDefault();
 
@@ -91,6 +121,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const password = document.getElementById("login-password").value.trim();
         const errorBox = document.getElementById("login-error-message");
         const loadingIndicator = document.getElementById("login-loading");
+
+        if (!email || !password) {
+            return showError(errorBox, "❌ Email dan password wajib diisi.");
+        }
 
         errorBox.innerText = "";
         loadingIndicator.style.display = "block";
@@ -105,31 +139,72 @@ document.addEventListener("DOMContentLoaded", function () {
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: params.toString()
         })
-            .then((res) => res.json())
-            .then((data) => {
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(err => {
+                        throw new Error(err.message || "HTTP error");
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
                 loadingIndicator.style.display = "none";
                 if (data.result === "success") {
-                    // Sembunyikan form login/signup
+                    document.body.classList.add("iframe-active");
+
                     loginSection.style.display = "none";
                     signupSection.style.display = "none";
 
-                    // Tampilkan container iframe
                     const datasheetContainer = document.getElementById("datasheet-container");
                     const datasheetFrame = document.getElementById("datasheet-frame");
-
-                    // Ganti ke URL spreadsheet atau halaman datasheet lokal
-                    datasheetFrame.src = "datasheet.html"; // ganti sesuai kebutuhan
+                    datasheetFrame.src = "datasheet.html";
 
                     datasheetContainer.style.display = "block";
+
+                    addLogoutButton();
                 } else {
-                    errorBox.style.color = "red";
-                    errorBox.innerText = "❌ " + (data.message || "Login gagal.");
+                    showError(errorBox, "❌ " + (data.message || "Login gagal."));
                 }
             })
-            .catch((err) => {
+            .catch(err => {
                 loadingIndicator.style.display = "none";
-                errorBox.style.color = "red";
-                errorBox.innerText = "❌ Error jaringan: " + err.message;
+                showError(errorBox, "❌ " + err.message);
             });
     });
+
+    // === TAMPILKAN ERROR MESSAGE ===
+    function showError(element, message) {
+        element.innerHTML = `
+            <div class="alert error">${message}</div>
+        `;
+    }
+
+    // === LOGOUT BUTTON ===
+    function addLogoutButton() {
+        const logoutBtn = document.createElement('button');
+        logoutBtn.id = 'logout-btn';
+        logoutBtn.innerHTML = 'Logout';
+        Object.assign(logoutBtn.style, {
+            position: 'fixed',
+            top: '10px',
+            right: '10px',
+            zIndex: '1001',
+            padding: '8px 16px',
+            background: '#f44336',
+            color: 'white',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer'
+        });
+
+        logoutBtn.addEventListener('click', function () {
+            document.body.classList.remove("iframe-active");
+            document.getElementById("datasheet-container").style.display = "none";
+            document.getElementById("datasheet-frame").src = "";
+            loginForm.reset();
+            this.remove();
+        });
+
+        document.body.appendChild(logoutBtn);
+    }
 });
