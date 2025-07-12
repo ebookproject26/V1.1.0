@@ -49,7 +49,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const email = document.getElementById("signup-email").value.trim();
         const password = document.getElementById("signup-password").value.trim();
         const messageBox = document.getElementById("signup-message");
+        const submitBtn = this.querySelector('button[type="submit"]');
 
+        // Validasi input
         if (!email || !password) {
             return showError(messageBox, "❌ Email dan password wajib diisi.");
         }
@@ -57,8 +59,19 @@ document.addEventListener("DOMContentLoaded", function () {
             return showError(messageBox, "❌ Format email tidak valid.");
         }
 
-        messageBox.style.color = "black";
-        messageBox.innerText = "⏳ Mengirim data...";
+        // Tampilkan loading state
+        submitBtn.innerHTML = `
+        <span class="spinner"></span>
+        <span class="btn-text">Mendaftarkan...</span>
+    `;
+        submitBtn.disabled = true;
+
+        messageBox.innerHTML = `
+        <div class="loading-message">
+            <span class="spinner small"></span>
+            <span>Mengirim data ke server...</span>
+        </div>
+    `;
 
         const params = new URLSearchParams();
         params.append("email", email);
@@ -73,44 +86,79 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(response => {
                 if (!response.ok) {
                     return response.json().then(err => {
-                        throw new Error(err.message || "HTTP error");
+                        throw new Error(err.message || "Terjadi kesalahan server");
                     });
                 }
                 return response.json();
             })
             .then(data => {
                 if (data.result === "success") {
+                    // Tampilkan animasi sukses
                     messageBox.innerHTML = `
-                <div class="alert success">
-                    ✅ Akun berhasil dibuat! Redirecting...
+                <div class="success-animation">
+                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                        <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                    </svg>
+                    <p>Akun berhasil dibuat!</p>
                 </div>
             `;
+
+                    submitBtn.innerHTML = '<span class="btn-text">✓ Berhasil</span>';
+
                     setTimeout(() => {
                         signupForm.reset();
                         messageBox.innerHTML = "";
 
-                        // Tampilkan kembali form login
+                        // Kembali ke form login
                         document.getElementById("signup-section").style.display = "none";
                         document.getElementById("login-section").style.display = "block";
 
-                        // Tampilkan pesan sukses di form login
+                        // Tampilkan pesan sukses di login form
                         const loginMessage = document.getElementById("login-error-message");
-                        loginMessage.style.color = "green";
-                        loginMessage.innerText = "✅ Akun berhasil dibuat. Silakan login.";
+                        loginMessage.innerHTML = `
+                    <div class="alert success">
+                        ✅ Akun berhasil dibuat. Silakan login.
+                    </div>
+                `;
+
+                        // Reset tombol setelah 3 detik
+                        setTimeout(() => {
+                            submitBtn.innerHTML = '<span class="btn-text">Daftar</span>';
+                            submitBtn.disabled = false;
+                        }, 3000);
                     }, 2000);
                 } else {
-                    showError(messageBox, data.message || "Signup gagal.");
+                    throw new Error(data.message || "Signup gagal");
                 }
             })
             .catch(err => {
                 console.error("Signup error:", err);
+                submitBtn.innerHTML = '<span class="btn-text">Daftar</span>';
+                submitBtn.disabled = false;
+
                 showError(messageBox,
                     err.message.includes("Failed to fetch")
-                        ? "Koneksi ke server gagal. Cek koneksi internet Anda."
-                        : err.message
+                        ? "❌ Koneksi ke server gagal. Cek koneksi internet Anda."
+                        : "❌ " + err.message
                 );
             });
     });
+
+    // Fungsi helper untuk menampilkan error
+    function showError(element, message) {
+        element.innerHTML = `
+        <div class="alert error">
+            ${message}
+        </div>
+    `;
+    }
+
+    // Fungsi validasi email
+    function isValidEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
 
 
     // === LOGIN ===
@@ -120,14 +168,25 @@ document.addEventListener("DOMContentLoaded", function () {
         const email = document.getElementById("login-email").value.trim();
         const password = document.getElementById("login-password").value.trim();
         const errorBox = document.getElementById("login-error-message");
-        const loadingIndicator = document.getElementById("login-loading");
+        const submitBtn = this.querySelector('button[type="submit"]');
 
+        // Validasi input
         if (!email || !password) {
             return showError(errorBox, "❌ Email dan password wajib diisi.");
         }
 
-        errorBox.innerText = "";
-        loadingIndicator.style.display = "block";
+        // Tampilkan loading state
+        submitBtn.innerHTML = `
+        <span class="spinner"></span>
+        <span class="btn-text">Memverifikasi...</span>
+    `;
+        submitBtn.disabled = true;
+        errorBox.innerHTML = `
+        <div class="loading-message">
+            <span class="spinner small"></span>
+            <span>Memverifikasi akun...</span>
+        </div>
+    `;
 
         const params = new URLSearchParams();
         params.append("email", email);
@@ -142,36 +201,61 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(response => {
                 if (!response.ok) {
                     return response.json().then(err => {
-                        throw new Error(err.message || "HTTP error");
+                        throw new Error(err.message || "Terjadi kesalahan server");
                     });
                 }
                 return response.json();
             })
             .then(data => {
-                loadingIndicator.style.display = "none";
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+
                 if (data.result === "success") {
-                    document.body.classList.add("iframe-active");
+                    // Tampilkan animasi sukses sebelum redirect
+                    submitBtn.innerHTML = `
+                <span class="btn-text">✓ Berhasil</span>
+            `;
+                    errorBox.innerHTML = `
+                <div class="success-animation">
+                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                        <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                    </svg>
+                    <p>Login berhasil!</p>
+                </div>
+            `;
 
-                    loginSection.style.display = "none";
-                    signupSection.style.display = "none";
+                    // Tunggu 1 detik sebelum membuka iframe
+                    setTimeout(() => {
+                        document.body.classList.add("iframe-active");
+                        loginSection.style.display = "none";
+                        signupSection.style.display = "none";
 
-                    const datasheetContainer = document.getElementById("datasheet-container");
-                    const datasheetFrame = document.getElementById("datasheet-frame");
-                    datasheetFrame.src = "datasheet.html";
+                        const datasheetContainer = document.getElementById("datasheet-container");
+                        const datasheetFrame = document.getElementById("datasheet-frame");
+                        datasheetFrame.src = "datasheet.html";
+                        datasheetContainer.style.display = "block";
 
-                    datasheetContainer.style.display = "block";
-
-                    addLogoutButton();
+                        addLogoutButton();
+                    }, 1000);
                 } else {
-                    showError(errorBox, "❌ " + (data.message || "Login gagal."));
+                    throw new Error(data.message || "Login gagal");
                 }
             })
             .catch(err => {
-                loadingIndicator.style.display = "none";
-                showError(errorBox, "❌ " + err.message);
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false
             });
     });
 
+    // Fungsi helper untuk menampilkan error
+    function showError(element, message) {
+        element.innerHTML = `
+        <div class="alert error">
+            ${message}
+        </div>
+    `;
+    }
     // === TAMPILKAN ERROR MESSAGE ===
     function showError(element, message) {
         element.innerHTML = `
@@ -208,3 +292,17 @@ document.addEventListener("DOMContentLoaded", function () {
         document.body.appendChild(logoutBtn);
     }
 });
+function showToast(message, type = 'info') {
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.remove();
+        }, 3000);
+    }, 100);
+}
+
